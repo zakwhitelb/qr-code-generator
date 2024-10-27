@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin:0;
+  padding: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+:root{
+  --transparent: transparent;
+  --black: #232323;
+  --white: #FBF8DA;
+  --blue: #296882;
+  --skyBlue: #CBDECD;
+  --gray: #7E7D7D;
+  --red: #C24530;
+  --10: 0.625rem;
+  --12: 0.75rem;
+  --14: 0.875rem;
+  --16: 1rem;
+  --18: 1.125rem;
+  --20: 1.25rem;
+  --24: 1.5rem;
+  --48: 3rem;
+}
+
+[data-theme="dark"] {
+  --blue2white: var(--white);
+  --skyBlue2white: var(--white);
+  --black2white: var(--white);
+  --blue2black: var(--black);
+  --white2black: var(--black);
+}
+
+[data-theme="light"] {
+  --blue2white: var(--blue);
+  --skyBlue2white: var(--skyBlue);
+  --black2white: var(--black);
+  --blue2black: var(--blue);
+  --white2black: var(--white);
+}
+
+body {
+  background-color: var(--bgColor);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}

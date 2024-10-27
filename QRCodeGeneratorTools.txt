@@ -1,0 +1,7 @@
+file extention support :
+	-->PNG: Directly supported and implemented in your code.
+	-->SVG: Also directly supported and implemented in your code.
+	-->JPEG: Supported, but not implemented in your current code.
+	-->BMP: Supported by the PIL (Pillow) library.
+	-->GIF: Supported by the PIL library.
+	-->WEBP: Supported by the PIL library.

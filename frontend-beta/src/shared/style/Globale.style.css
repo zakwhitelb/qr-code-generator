@@ -1,0 +1,24 @@
+@font-face {
+    font-family: "montserrat-bold";
+    src: local("Montserrat-Bold"), url("../asset/font/montserrat/Montserrat-Bold.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "noto-sans-medium";
+    src: local("NotoSans-Medium"), url("../asset/font/noto-sans/NotoSans-Medium.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "pt-sans-regular";
+    src: local("PTSans-Regular"), url("../asset/font/pt-sans/PTSans-Regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "noto-sans-light";
+    src: local("NotoSans-Light"), url("../asset/font/noto-sans/NotoSans-Light.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "noto-sans-semi-bold";
+    src: local("NotoSans-SemiBold"), url("../asset/font/noto-sans/NotoSans-SemiBold.ttf") format("truetype");
+}
