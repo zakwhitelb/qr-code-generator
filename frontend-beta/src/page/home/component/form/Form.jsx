@@ -10,7 +10,6 @@ import { reducer, initialState } from "../../../../shared/store/Error.reducer"
 // Component imports
 import { Menu } from "./form-item/Menu";
 import { QRCodeLink } from "../form/form-item/QRCodeLink.item";
-import { QRCodeStyle } from "../form/form-item/QRCodeStyle.item";
 import { Colors } from "../form/form-item/Colors.item";
 import { FileFormat } from "../form/form-item/FileFormat.item";
 import { ButtonForm } from "./form-item/ButtonForm";
@@ -23,7 +22,6 @@ function Form() {
         link: "",
         bgColor: "var(--transparent)",
         qrCodeColor: "var(--black)",
-        qrCodeStyle: "",
         fileFormat: "png",
     });
 
@@ -56,7 +54,6 @@ function Form() {
 
             <div className="mt-[30px]">
                 {isClicked === "Link" && <QRCodeLink error={state} dataQRCode={dataQRCode} handleChange={handleChange} />}
-                {isClicked === "Style" && <QRCodeStyle error={state} dataQRCode={dataQRCode} handleChange={handleChange} />}
                 {isClicked === "Color" && <Colors error={state} dataQRCode={dataQRCode} handleChange={handleChange} />}
                 {isClicked === "File format" && <FileFormat error={state} dataQRCode={dataQRCode} handleChange={handleChange} />}
             </div>
