@@ -1,6 +1,6 @@
 function Menu({ isClicked, setButtonClicked }) {
 
-    const MENUITEMS = ["Link", "Style", "Color", "File format"];
+    const MENUITEMS = ["Link", "Color", "File format"];
 
     return (
         <div className="flex items-center justify-center gap-[20px]">
