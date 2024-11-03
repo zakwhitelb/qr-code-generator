@@ -15,7 +15,7 @@ function Home() {
         filename: "qrcode",  
         error_correction: "H",  
         box_size: 10, 
-        border: 0, 
+        border: 0,
         fill_color: "#232323", 
         back_color: "transparent",         
         file_type: "png"         
@@ -25,7 +25,7 @@ function Home() {
         <>
             <div className="flex justify-center items-center gap-[60px]">
                 <Form dataQRCode={dataQRCode} setDataQRCode={setDataQRCode} qrCode={qrCode} loading={loading} setLoading={setLoading} generateQRCode={generateQRCode} state={state} dispatch={dispatch} />
-                <QRCodeView qrCode={qrCode} loading={loading} />
+                <QRCodeView qrCode={qrCode} loading={loading} extension={dataQRCode["file_type"]} />
             </div>
         </>
     )

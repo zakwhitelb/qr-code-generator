@@ -2,18 +2,18 @@ import { useState } from "react";
 
 function FileFormat({ dataQRCode, handleChange }) {
     const [toggleInput, setToggleInput] = useState(false);
-    const [clickedButton, setClickedButton] = useState(dataQRCode["fileFormat"] ? dataQRCode["fileFormat"] : null);
-    const FILEFORMA = ["png", "jpeg", "svg", "pdf", "gif"];
+
+    // Set "png" as the default value if dataQRCode["fileFormat"] is not provided
+    const [clickedButton, setClickedButton] = useState(
+        dataQRCode["fileFormat"] ? dataQRCode["fileFormat"] : "png"
+    );
+
+    const FILEFORMA = ["png", "jpg", "svg", "pdf", "gif"];
 
     const handleFormatClick = (item) => {
-        // Set clicked format
-        setClickedButton(item);
-
-        // Notify parent component
-        handleChange("fileFormat", item);
-
-        // Close the toggle
-        setToggleInput(false);
+        setClickedButton(item);         // Update the clicked format
+        handleChange("file_type", item); // Notify parent component of change
+        setToggleInput(false);           // Close the toggle after selection
     };
 
     return (
@@ -23,7 +23,7 @@ function FileFormat({ dataQRCode, handleChange }) {
             </p>
             <div>
                 <div
-                    onClick={() => setToggleInput(!toggleInput)} // Explicitly toggle open/close
+                    onClick={() => setToggleInput(!toggleInput)} // Toggle open/close on click
                     style={{ fontSize: `var(--18)` }}
                     className="mt-[5px] font-[noto-sans-light] text-[var(--black)] cursor-pointer"
                 >
@@ -34,7 +34,7 @@ function FileFormat({ dataQRCode, handleChange }) {
                             <p>Choose a format</p>
                         )}
                     </div>
-            
+
                     {toggleInput && (
                         <div 
                             className="flex justify-between transition-all gap-2 mt-[10px] duration-500 opacity-100"
@@ -42,7 +42,7 @@ function FileFormat({ dataQRCode, handleChange }) {
                             {FILEFORMA.filter(item => item !== clickedButton).map(item => (
                                 <div
                                     key={item}
-                                    onClick={() => handleFormatClick(item)} // Call function to handle format selection and close toggle
+                                    onClick={() => handleFormatClick(item)}
                                     className="flex items-center w-full h-[40px] bg-[var(--skyBlue2white)] rounded-[10px] px-[15px] cursor-pointer"
                                 > 
                                     <p className="w-full text-center">{item}</p>
