@@ -13,6 +13,8 @@ export const reducer = (state, action) => {
             return { existing: true, message: 'No data to convert!'};
         case "0005":
             return { existing: true, message: 'The QR code and it background have the same color!'};
+        case "0006":
+            return { existing: true, message: 'No file forma!'};
         case "0000":
             return { existing: true, message: action.error};
         case "catch-error":

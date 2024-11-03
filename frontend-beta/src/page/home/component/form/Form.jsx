@@ -1,11 +1,5 @@
 // System imports
-import { useState, useCallback, useReducer } from "react";
-
-// Application imports
-import { useFileConverter } from "../../../../app/useFileConverter";
-
-// Store imports
-import { reducer, initialState } from "../../../../shared/store/Error.reducer"
+import { useState, useCallback } from "react";
 
 // Component imports
 import { Menu } from "./form-item/Menu";
@@ -14,16 +8,8 @@ import { Colors } from "../form/form-item/Colors.item";
 import { FileFormat } from "../form/form-item/FileFormat.item";
 import { ButtonForm } from "./form-item/ButtonForm";
 
-function Form() {
-    const { data, loading, setLoading, generateQRCode } = useFileConverter();
+function Form({ dataQRCode, setDataQRCode, qrCode, loading, setLoading, generateQRCode, state, dispatch }) {
     const [isClicked, setButtonClicked] = useState("Link");
-    const [state, dispatch] = useReducer(reducer, initialState);
-    const [dataQRCode, setDataQRCode] = useState({
-        link: "",
-        bgColor: "var(--transparent)",
-        qrCodeColor: "var(--black)",
-        fileFormat: "png",
-    });
 
     const handleChange = useCallback((name, value) => {
         setDataQRCode((prevData) => ({
@@ -31,15 +17,16 @@ function Form() {
             [name]: value,
         }));
         dispatch({ type: "clear" });
-    }, []);
+    }, [dispatch, setDataQRCode]);
 
     console.log(dataQRCode)
 
     const Error = () => {
-        if (state && state.existing === true) {
-            return <p style={{fontSize: "var(--16)"}} className="font-[pt-sans-regular] text-[var(--red)] text-center mb-[5px]">{state.message}</p>;
-        }
-        return null;
+        return state.existing ? (
+            <p style={{ fontSize: "var(--16)" }} className="font-[pt-sans-regular] text-[var(--red)] text-center mb-[5px]">
+                {state.message}
+            </p>
+        ) : null;
     };
 
     return (
@@ -62,11 +49,17 @@ function Form() {
                 <div className="w-full">
                     <Error />
                 </div>
-                <ButtonForm data={data} dispatch={dispatch} loading={loading} setLoading={setLoading} dataQRCode={dataQRCode} generateQRCode={generateQRCode} />
+                <ButtonForm
+                    qrCode={qrCode}
+                    dispatch={dispatch}
+                    loading={loading}
+                    setLoading={setLoading}
+                    dataQRCode={dataQRCode}
+                    generateQRCode={generateQRCode}
+                />
             </div>
         </div>
     );
 }
-
 
 export { Form };

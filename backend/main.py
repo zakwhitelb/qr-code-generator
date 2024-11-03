@@ -1,6 +1,7 @@
 # main.py
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import qrcode
 from PIL import Image
@@ -9,6 +10,14 @@ import svgwrite
 from typing import Optional
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Set this to specific origins in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Define a request model for the QR code parameters
 class QRCodeRequest(BaseModel):
@@ -91,6 +100,8 @@ def create_qr_code(data: str, size: int = 300, error_correction: str = "H", box_
 @app.post("/generate-qr")
 async def generate_qr(request: QRCodeRequest):
     try:
+        print("Received request:", request.dict())
+        
         img_io = create_qr_code(
             request.data,
             request.size,
@@ -99,11 +110,10 @@ async def generate_qr(request: QRCodeRequest):
             request.border,
             request.fill_color,
             request.back_color,
-            request.file_type  # Pass the file type to the function
+            request.file_type
         )
         
-        # Determine the media type based on the requested file type
-        file_type = request.file_type.lower()  # Convert file type to lowercase for consistent comparison
+        file_type = request.file_type.lower()
         if file_type == "svg":
             media_type = "image/svg+xml"
         elif file_type == "jpeg" or file_type == "jpg":
@@ -119,9 +129,13 @@ async def generate_qr(request: QRCodeRequest):
         else:
             raise HTTPException(status_code=400, detail="Unsupported file type requested")
 
+        img_io.seek(0)  # Ensure we’re at the start of the BytesIO stream
         return StreamingResponse(img_io, media_type=media_type, headers={
-            "Content-Disposition": f"attachment; filename={request.filename}"
+            "Content-Disposition": f"attachment; filename={request.filename}.{file_type}"
         })
+        
     except Exception as e:
+        print("Error:", e)  # Log the exact error
         raise HTTPException(status_code=500, detail=str(e))
+
 

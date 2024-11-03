@@ -3,7 +3,7 @@ import { useState } from "react";
 function FileFormat({ dataQRCode, handleChange }) {
     const [toggleInput, setToggleInput] = useState(false);
     const [clickedButton, setClickedButton] = useState(dataQRCode["fileFormat"] ? dataQRCode["fileFormat"] : null);
-    const FILEFORMA = ["png", "jpg", "svg", "pdf", "eps"];
+    const FILEFORMA = ["png", "jpeg", "svg", "pdf", "gif"];
 
     const handleFormatClick = (item) => {
         // Set clicked format
