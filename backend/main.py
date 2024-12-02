@@ -26,7 +26,7 @@ class QRCodeRequest(BaseModel):
     filename: Optional[str] = "qrcode"
     error_correction: Optional[str] = "H"
     box_size: Optional[int] = 10
-    border: Optional[int] = 4
+    border: Optional[int] = 0
     fill_color: Optional[str] = "black"
     back_color: Optional[str] = "white"
     file_type: Optional[str] = "png"
@@ -76,13 +76,13 @@ def create_qr_code(data: str, size: int, error_correction: str, box_size: int, b
 
         try:
             if file_type.lower() == "pdf":
-                img = img.convert("RGB")
+                img = img.convert("RGB")  # Required for PDF
                 img.save(img_io, format="PDF")
             elif file_type.lower() in ["jpeg", "jpg"]:
-                img = img.convert("RGB")
+                img = img.convert("RGB")  # Required for JPEG
                 img.save(img_io, format="JPEG")
             elif file_type.lower() == "gif":
-                img = img.convert("P")
+                img = img.convert("P")  # Palette mode for GIF
                 img.save(img_io, format="GIF")
             else:
                 img.save(img_io, format=file_type.upper())
@@ -109,9 +109,9 @@ async def generate_qr(request: QRCodeRequest):
         
         file_type = request.file_type.lower()
         media_types = {
-            "svg": "image/svg+xml",
+            "svg": "image/svg",
             "jpeg": "image/jpeg",
-            "jpg": "image/jpeg",
+            "jpg": "image/jpg",
             "png": "image/png",
             "gif": "image/gif",
             "pdf": "application/pdf"
@@ -127,5 +127,5 @@ async def generate_qr(request: QRCodeRequest):
     except HTTPException as e:
         raise e
     except Exception as e:
-        print("Unexpected error:", e)
-        raise HTTPException(status_code=500, detail=str(e))
+        print("Unexpected error:", e) 
+        raise HTTPException(status_code=500, detail=str(e)) 
