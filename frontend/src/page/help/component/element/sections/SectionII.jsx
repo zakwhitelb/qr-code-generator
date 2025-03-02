@@ -29,7 +29,6 @@ function SectionII() {
                     </Link>
                 </div>
             </div>
-            <div></div>
         </div>
     )
 }
